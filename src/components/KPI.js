@@ -1,5 +1,4 @@
-import {useContext, useState, useEffect} from 'react';
-import { useAPI } from "../contexts/KPIContext";
+import {useState, useEffect} from 'react';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import EditForm from './EditForm'
 
@@ -36,11 +35,11 @@ const KPI = ({kpi}) => {
                         Delete
                     </Tooltip>
                 }>
-                <button className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
+                <button className="btn  btn-act" style={{color:"black"}} data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
             </OverlayTrigger>
         </td>
         <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
             <Modal.Title>
                 Edit KPI
             </Modal.Title>

@@ -1,36 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Alert} from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import AddForm from "./AddForm";
 import KPI from "./KPI"
 import Pagination from './Pagination';
 import { useAPI } from "../contexts/KPIContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { injectStyle } from "react-toastify/dist/inject-style";
 
+if (typeof window !== "undefined") {
+    injectStyle();
+  }
 
 const KPIList = () => {
     const { kpis } = useAPI();
-    const [loading, setLoading] = useState(false)
-
-    const [showAlert, setShowAlert] = useState(false);
 	const [show, setShow] = useState(false);
-
 	const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
-
     const [currentPage, setCurrentPage] = useState(1);
-    const [employeesPerPage] = useState(2)
+    const [employeesPerPage] = useState(6)
 
-    const handleShowAlert = () => {
-        setShowAlert(true);
-        setTimeout(()=> {
-            setShowAlert(false);
-        }, 2000)
-    }
     useEffect(() => {
         handleClose();
-
-        return () => {
-            handleShowAlert();
-        }
     }, [kpis])
 
     const indexOfLastEmployee = currentPage * employeesPerPage;
@@ -46,14 +37,11 @@ const KPIList = () => {
 						<h2>Manage <b>KPIs</b></h2>
 					</div>
 					<div className="col-sm-6">
-                		<Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New KPI</span></Button>					
+                		<Button onClick={handleShow} id='btn' data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New KPI</span></Button>					
             		</div>
 				</div>
-			</div>
-
-            <Alert show={showAlert} variant="success">
-                KPI Added Succefully!
-            </Alert>
+        </div>
+          <ToastContainer />
         <table className="table table-striped table-hover">
         <thead>
             <tr>
@@ -67,24 +55,23 @@ const KPIList = () => {
             </tr>
         </thead>
         <tbody>
-                {
-                   
-                    currentEmployees.map(kpi => (
-                        <tr key={kpi.kpi_id}>
-                            <KPI kpi={kpi}/>
-                        </tr>
-                    ))
-                }
+            {
+                
+                currentEmployees.map(kpi => (
+                    <tr key={kpi.kpi_id}>
+                        <KPI kpi={kpi}/>
+                    </tr>
+                ))
+            }
         </tbody>
         </table>
-
         <Pagination pages = {totalPagesNum}
                 setCurrentPage={setCurrentPage}
                 currentEmployees ={currentEmployees}
                 kpis = {kpis} />
 
 		<Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
             <Modal.Title>
                 Add KPI
             </Modal.Title>

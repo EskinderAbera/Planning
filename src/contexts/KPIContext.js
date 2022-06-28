@@ -6,12 +6,14 @@ const APIContext = createContext();
 
 export function APIContextProvider({ children }) {
   const [kpis, setKpis] = useState([]);
+  const [ loading, setLoading ] = useState(true);
   useEffect(() => {
     async function fetchData() {
       const { data } = await axios.get(
         `https://bsc-newapi.herokuapp.com/bsc/planning/kpi/`
       );
       setKpis(data);
+      setLoading(false);
     }
     fetchData();
   }, []);
@@ -20,11 +22,12 @@ export function APIContextProvider({ children }) {
     setKpis([...kpis , { kpi_id:uuidv4(),perspective, objective, kpi_name, kpi_weight, kpi_target, kpi_unit_measurement}])
     }
 
-  const updateKpi = (kpi_id, updatedKpi) => {
-        setKpis(kpis.map((kpi) => kpi.kpi_id === kpi_id ? updatedKpi : kpi))
+  const updateKpi = (kpi_name, updatedKpi) => {
+        setKpis(kpis.map((kpi) => kpi.kpi_name === kpi_name ? updatedKpi : kpi))
     }
 
   return (
+    loading ? <h2>Loading.....</h2> :
     <APIContext.Provider
       value={{
         kpis,

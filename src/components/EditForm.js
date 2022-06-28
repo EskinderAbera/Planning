@@ -3,6 +3,8 @@ import { useAPI } from "../contexts/KPIContext";
 import { useState } from 'react';
 import axios from "axios";
 import { url } from "./Constants";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditForm = ({theEmployee}) => {
     const kpi_id = theEmployee.kpi_id
@@ -15,6 +17,21 @@ const EditForm = ({theEmployee}) => {
 
     const { updateKpi } = useAPI();
     const updatedKpi = {kpi_id, perspective, objective, kpi_name, kpi_weight, kpi_target, kpi_unit_measurement};
+
+
+    const handleError = (error) => {
+        <div>
+        {toast.warning(error.response.data["Error"])};
+        <ToastContainer />
+      </div>
+    }
+
+    const handleSuccess = (data) => {
+        <div>
+            {toast.info("You have edited KPI Successfully!")};
+            <ToastContainer />
+        </div>
+    }
 
 
     const editKPI = async () => {     
@@ -30,11 +47,12 @@ const EditForm = ({theEmployee}) => {
         .post(`${url}/edit/kpi/${kpi_name}/`, datas)
         .then((response) => {
             if (response.status == 200) {
-                updateKpi(kpi_id, updatedKpi)
+                handleSuccess(response.data)
+                updateKpi(kpi_name, updatedKpi)
             }
         })
         .catch((error) => {
-            alert(error.response.data['Error']);
+            handleError(error.response.data['Error']);
           });
     } 
 

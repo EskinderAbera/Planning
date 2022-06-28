@@ -1,6 +1,5 @@
 import KPIList from "./components/KPIList";
 import { APIContextProvider } from './contexts/KPIContext';
-import EmployeeContextProvider from './contexts/KPIContext';
 
 function App() {
   return (
