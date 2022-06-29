@@ -20,17 +20,44 @@ const KPIList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [employeesPerPage] = useState(6)
 
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredKpis, setFilteredKpis] = useState(kpis);
+
     useEffect(() => {
         handleClose();
     }, [kpis])
 
+    useEffect(() => {
+        const newkpis = kpis.filter(kpi =>
+          kpi.kpi_name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()),
+        );
+        setFilteredKpis(newkpis);
+        return (
+            handleClose()
+        )
+      }, [searchTerm, kpis]);
+
     const indexOfLastEmployee = currentPage * employeesPerPage;
     const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
-    const currentEmployees = kpis.slice(indexOfFirstEmployee, indexOfLastEmployee);
-    const totalPagesNum = Math.ceil(kpis.length / employeesPerPage);
+    const currentEmployees = filteredKpis.slice(indexOfFirstEmployee, indexOfLastEmployee);
+    const totalPagesNum = Math.ceil(filteredKpis.length / employeesPerPage);
 
     return (
         <>
+        <div className="row g-3 align-items-center"> 
+            <div className="col-auto">
+                <input type="text" 
+                        className="form-control" 
+                        placeholder="Search...." 
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+        </div>
+        <div className="mb-5">
+        </div>
         <div className="table-title">
 				<div className="row">
 					<div className="col-sm-6">
@@ -56,10 +83,14 @@ const KPIList = () => {
         </thead>
         <tbody>
             {
-                
-                currentEmployees.map(kpi => (
-                    <tr key={kpi.kpi_id}>
-                        <KPI kpi={kpi}/>
+                filteredKpis.length === kpis.length ? currentEmployees.map(kpi => (
+                    <tr key={kpi.kpi_id} >
+                        <KPI kpi={kpi} />
+                    </tr>
+                )) :
+                filteredKpis.map(kpi => (
+                    <tr key={kpi.kpi_id} >
+                        <KPI kpi={kpi} />
                     </tr>
                 ))
             }
@@ -68,7 +99,7 @@ const KPIList = () => {
         <Pagination pages = {totalPagesNum}
                 setCurrentPage={setCurrentPage}
                 currentEmployees ={currentEmployees}
-                kpis = {kpis} />
+                kpis = {filteredKpis} />
 
 		<Modal show={show} onHide={handleClose}>
         <Modal.Header>

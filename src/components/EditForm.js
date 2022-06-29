@@ -21,9 +21,9 @@ const EditForm = ({theEmployee}) => {
 
     const handleError = (error) => {
         <div>
-        {toast.warning(error.response.data["Error"])};
-        <ToastContainer />
-      </div>
+            {toast.warning(error.response.data["Error"])};
+            <ToastContainer />
+        </div>
     }
 
     const handleSuccess = (data) => {

@@ -26,13 +26,18 @@ export function APIContextProvider({ children }) {
         setKpis(kpis.map((kpi) => kpi.kpi_name === kpi_name ? updatedKpi : kpi))
     }
 
+  const deleteKpi = (kpi_id) => {
+    setKpis(kpis.filter(kpi => kpi.kpi_id !== kpi_id))
+  }
+
   return (
     loading ? <h2>Loading.....</h2> :
     <APIContext.Provider
       value={{
         kpis,
         addKpi,
-        updateKpi
+        updateKpi,
+        deleteKpi
       }}
     >
       {children}
