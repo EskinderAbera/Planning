@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { useAPI } from "../contexts/KPIContext";
 
-function CustomDropdown(props){
+function CustomDropdown(){
     const {objective,changeSelectedKpi, changeKpiName, kpis, changeKpiId } = useAPI();
-    const [kpiName, setKpiName] = useState("")
+
     function addUnit(e) {
       changeKpiName(e.target.value)
       var c = e.target.value
@@ -24,36 +24,13 @@ function CustomDropdown(props){
   </div>
 }
 
-export default class CustomListDropDown extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      collection: [],
-      value: '',
-    }
-  }
-  componentDidMount() {
-    // fetch('https://bsc-newapi.herokuapp.com/bsc/kpi/')
-    fetch('http://127.0.0.1:8000/bsc/kpi/')
-      .then((response) => response.json())
-      .then((res) => {
-        this.setState({ collection: res })})
-  }
-  onChange = (event) => {
-    this.setState({ value: event.target.value })
-    
-   
-  }
-  render() {
+const CustomListDropDown = () => {
     return (
       <div className="form-group">
         <label>Choose KPIs</label>
-        
-        <CustomDropdown
-          name={this.state.perspective}
-          options={this.state.collection}
-        />
+        <CustomDropdown />
       </div>
     )
-  }
 }
+
+export default CustomListDropDown
