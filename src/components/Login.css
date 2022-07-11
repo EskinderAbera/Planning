@@ -1,0 +1,6 @@
+@media screen and (max-width: 470px) {
+    .username {
+        display: block;
+        width: 25%;
+    }
+  }

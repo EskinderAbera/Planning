@@ -7,6 +7,7 @@ import { useAPI } from "../contexts/KPIContext";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { injectStyle } from "react-toastify/dist/inject-style";
+import { useNavigate } from "react-router-dom";
 
 if (typeof window !== "undefined") {
     injectStyle();
@@ -19,13 +20,14 @@ const KPIList = () => {
     const handleClose = () => setShow(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [employeesPerPage] = useState(6)
-
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredKpis, setFilteredKpis] = useState(kpis);
+    let navigate = useNavigate();
 
-    useEffect(() => {
-        handleClose();
-    }, [kpis])
+
+    const handleLogout = () => {
+        navigate('/login')
+    }
 
     useEffect(() => {
         const newkpis = kpis.filter(kpi =>
@@ -55,6 +57,9 @@ const KPIList = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
+            <div className="col-sm-6">
+                <Button style = {{marginLeft: '600px'}} onClick={handleLogout} id='btn' data-toggle="modal"> <span>Logout</span></Button>					
+            </div>
         </div>
         <div className="mb-5">
         </div>
@@ -82,13 +87,15 @@ const KPIList = () => {
             </tr>
         </thead>
         <tbody>
-            {
-                filteredKpis.length === kpis.length ? currentEmployees.map(kpi => (
+            {                
+                filteredKpis.length === kpis.length ? currentEmployees.filter((kpi, index) => kpi.kpi_weight > '0').
+                map((kpi, index) => (
                     <tr key={kpi.kpi_id} >
                         <KPI kpi={kpi} />
                     </tr>
                 )) :
-                filteredKpis.map(kpi => (
+                filteredKpis.filter((kpi, index) => kpi.kpi_weight > '0').
+                map((kpi, index) => (
                     <tr key={kpi.kpi_id} >
                         <KPI kpi={kpi} />
                     </tr>
