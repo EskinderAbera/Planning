@@ -20,26 +20,17 @@
   --lightTwo: #e7e3e3;
 }
 
-.loader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.loading {
-  width: 70px;
-}
-
-main,
-main::before,
-main::after {
+*,
+*::before,
+*::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: "#f1f8fc";
 }
 
 body {
   font-family: "Poppins", sans-serif;
+  /* background-color: #001d31; */
 }
 
 .stop-scrolling {
@@ -55,13 +46,14 @@ a {
   text-decoration: none;
 }
 
-.bigwrapper {
+.big-wrapper {
   position: relative;
   padding: 1.7rem 0 2rem;
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
   background-color: var(--backgroundColor);
+  /* background-color: #001d31; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -74,6 +66,26 @@ a {
   margin: 0 auto;
   padding: 0 3rem;
   z-index: 10;
+}
+
+.loader-landing {
+  width: 100%;
+  background-color: #001d31;
+}
+
+.img-loader{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-left: auto;
+  width: 50%;
+ 
+ /* top:auto; 
+ right: 0; 
+ width: 30px; 
+ height: 30px;
+ background-color: rgba(255, 255, 255, .5) */
 }
 
 header {
@@ -98,10 +110,9 @@ header .container {
 }
 
 .logo img {
-  width: 80%;
+  width: 100%;
   margin-right: 0.6rem;
   margin-top: -0.6rem;
-  background-color: #f1f8fc;
 }
 
 .logo h3 {
@@ -129,7 +140,7 @@ header .container {
   transform: scale(1.05);
 }
 
-.btn {
+/* .btn {
   display: inline-block;
   padding: 0.9rem 1.9rem;
   color: #fff !important;
@@ -137,14 +148,14 @@ header .container {
   border-radius: 16px;
   text-transform: capitalize;
   transition: 0.3s;
-}
+} */
 
-.btn:hover {
+/* .btn:hover {
   background-color: var(--hoverColor);
   transform: scale(1) !important;
-}
+} */
 
-.hamburger-menu {
+/* .hamburger-menu {
   position: relative;
   z-index: 99;
   width: 2rem;
@@ -154,7 +165,7 @@ header .container {
   justify-content: center;
   cursor: pointer;
   display: none;
-}
+} */
 
 .hamburger-menu .bar {
   position: relative;
@@ -196,14 +207,14 @@ header .container {
   transform: translateY(0) rotate(45deg);
 }
 
-.showcasearea .container {
+.showcase-area .container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-content: center;
 }
 
-.bigtitle {
+.big-title {
   font-size: 1.4rem;
   color: var(--darkOne);
   text-transform: capitalize;
@@ -218,17 +229,20 @@ header .container {
   line-height: 2.3;
 }
 
-.showcasearea .btn {
+.showcase-area .btn-landing {
   box-shadow: 0 0 40px 2px rgba(0, 0, 0, 0.05);
 }
 
 .person {
-  width: 100%;
-  /* height: 100%; */
-  transform: translate(5%);
+  width: 123%;
+  transform: translate(0%, 25px);
 }
 
-.togglebtn {
+.selecting {
+  width: 50%;
+}
+
+.toggle-btn {
   display: inline-block;
   border: none;
   background: var(--darkTwo);
@@ -242,27 +256,27 @@ header .container {
   transition: 0.3s;
 }
 
-.togglebtn i {
+.toggle-btn i {
   line-height: 39px;
 }
 
-.togglebtn:hover {
+.toggle-btn:hover {
   background: var(--mainColor);
 }
 
-.big-wrapper.light .togglebtn i:last-child {
+.big-wrapper.light .toggle-btn i:last-child {
   display: none;
 }
 
-.big-wrapper.light .togglebtn i:first-child {
+.big-wrapper.light .toggle-btn i:first-child {
   display: block;
 }
 
-.big-wrapper.dark .togglebtn i:last-child {
+.big-wrapper.dark .toggle-btn i:last-child {
   display: block;
 }
 
-.big-wrapper.dark .togglebtn i:first-child {
+.big-wrapper.dark .toggle-btn i:first-child {
   display: none;
 }
 
@@ -323,7 +337,7 @@ header .container {
     padding: 2rem 0;
   }
 
-  .links .btn {
+  .links .btn-landing {
     background: none;
   }
 
@@ -350,19 +364,19 @@ header .container {
     opacity: 1;
   }
 
-  .showcasearea {
+  .showcase-area {
     padding: 2.5rem 0;
     max-width: 700px;
     margin: 0 auto;
   }
 
-  .showcasearea .container {
+  .showcase-area .container {
     grid-template-columns: 1fr;
     justify-content: center;
     grid-gap: 2rem;
   }
 
-  .bigtitle {
+  .big-title {
     font-size: 1.1rem;
   }
 
@@ -372,7 +386,7 @@ header .container {
   }
 
   .person {
-    width: 90%;
+    width: 100%;
     transform: none;
   }
 
@@ -388,10 +402,14 @@ header .container {
 
 @media screen and (max-width: 470px) {
   .container {
-    padding: 0 0rem;
+    padding: 0 1.5rem;
+  }
+  .img-loader {
+    padding: 0 1.5rem;
+    width: inherit;
   }
 
-  .bigtitle {
+  .big-title {
     font-size: 0.9rem;
   }
 
@@ -399,7 +417,7 @@ header .container {
     margin: 1.1rem 0 1.5rem;
   }
 
-  .showcasearea .btn {
+  .showcase-area .btn-landing {
     font-size: 0.8rem;
   }
 }

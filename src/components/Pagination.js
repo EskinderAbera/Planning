@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import './KPIList.css'
 
 const Pagination = ({pages, setCurrentPage, currentEmployees, kpis}) => {
     const numOfPages = [];

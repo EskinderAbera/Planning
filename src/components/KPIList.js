@@ -8,12 +8,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { injectStyle } from "react-toastify/dist/inject-style";
 import { useNavigate } from "react-router-dom";
+import './KPIList.css'
 
 if (typeof window !== "undefined") {
     injectStyle();
   }
 
 const KPIList = () => {
+
     const { kpis } = useAPI();
 	const [show, setShow] = useState(false);
 	const handleShow = () => setShow(true);
@@ -47,83 +49,87 @@ const KPIList = () => {
     const totalPagesNum = Math.ceil(filteredKpis.length / employeesPerPage);
 
     return (
-        <>
-        <div className="row g-3 align-items-center"> 
-            <div className="col-auto">
-                <input type="text" 
-                        className="form-control" 
-                        placeholder="Search...." 
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
-            <div className="col-sm-6">
-                <Button style = {{marginLeft: '600px'}} onClick={handleLogout} id='btn' data-toggle="modal"> <span>Logout</span></Button>					
-            </div>
-        </div>
-        <div className="mb-5">
-        </div>
-        <div className="table-title">
-				<div className="row">
-					<div className="col-sm-6">
-						<h2>Manage <b>KPIs</b></h2>
-					</div>
-					<div className="col-sm-6">
-                		<Button onClick={handleShow} id='btn' data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New KPI</span></Button>					
-            		</div>
-				</div>
-        </div>
-          <ToastContainer />
-        <table className="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Perspective</th>
-                <th>Objective</th>
-                <th>KPI Name</th>
-                <th>KPI Weight</th>
-                <th>KPI Target</th>
-                <th>KPI Unit of Measurement</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {                
-                filteredKpis.length === kpis.length ? currentEmployees.filter((kpi, index) => kpi.kpi_weight > '0').
-                map((kpi, index) => (
-                    <tr key={kpi.kpi_id} >
-                        <KPI kpi={kpi} />
-                    </tr>
-                )) :
-                filteredKpis.filter((kpi, index) => kpi.kpi_weight > '0').
-                map((kpi, index) => (
-                    <tr key={kpi.kpi_id} >
-                        <KPI kpi={kpi} />
-                    </tr>
-                ))
-            }
-        </tbody>
-        </table>
-        <Pagination pages = {totalPagesNum}
-                setCurrentPage={setCurrentPage}
-                currentEmployees ={currentEmployees}
-                kpis = {filteredKpis} />
+        <div className="container-xl">
+            <div className="table-responsive">
+                <div className="table-wrapper"> 
+                    <div className="row g-3 align-items-center"> 
+                        <div className="col-auto">
+                            <input type="text" 
+                                    className="form-control" 
+                                    placeholder="Search...." 
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                        {/* <div className="col-sm-6">
+                            <Button style = {{marginLeft: '600px'}} onClick={handleLogout} id='btn' data-toggle="modal"> <span>Logout</span></Button>					
+                        </div> */}
+                    </div>
+                    <div className="mb-5">
+                    </div>
+                    <div className="table-title">
+                            <div className="row">
+                                <div className="col-sm-6">
+                                    <h2>Manage <b>KPIs</b></h2>
+                                </div>
+                                <div className="col-sm-6">
+                                    <Button onClick={handleShow} id='btn' data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New KPI</span></Button>					
+                                </div>
+                            </div>
+                    </div>
+                    <ToastContainer />
+                    <table className= "table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Perspective</th>
+                            <th>Objective</th>
+                            <th>KPI Name</th>
+                            <th>KPI Weight</th>
+                            <th>KPI Target</th>
+                            <th>KPI Unit of Measurement</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {                
+                            filteredKpis.length === kpis.length ? currentEmployees.filter((kpi, index) => kpi.kpi_weight > '0').
+                            map((kpi, index) => (
+                                <tr key={kpi.kpi_id} >
+                                    <KPI kpi={kpi} />
+                                </tr>
+                            )) :
+                            filteredKpis.filter((kpi, index) => kpi.kpi_weight > '0').
+                            map((kpi, index) => (
+                                <tr key={kpi.kpi_id} >
+                                    <KPI kpi={kpi} />
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                    </table>
+                        <Pagination pages = {totalPagesNum}
+                                setCurrentPage={setCurrentPage}
+                                currentEmployees ={currentEmployees}
+                                kpis = {filteredKpis} />
 
-		<Modal show={show} onHide={handleClose}>
-        <Modal.Header>
-            <Modal.Title>
-                Add KPI
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <AddForm />
-        </Modal.Body>
-        <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close Button
-                </Button>
-        </Modal.Footer>
-    </Modal>
-        </>
+                        <Modal show={show} onHide={handleClose}>
+                        <Modal.Header>
+                            <Modal.Title>
+                                Add KPI
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <AddForm />
+                        </Modal.Body>
+                        <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Close Button
+                                </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+            </div>
+        </div>
     )
 }
 export default KPIList;
