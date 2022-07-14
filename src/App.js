@@ -13,7 +13,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Navigate replace to="/landing" />} />
-            <Route exact path="/login" element = { <Login />}></Route>
+            {/* <Route exact path="/login" element = { <Login />}></Route> */}
             <Route exact path="/landing" element = { <LandingPage />}></Route>
             <Route exact path="/kpi" element = { <KPIList /> }></Route>
           </Routes>
