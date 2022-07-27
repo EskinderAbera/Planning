@@ -33,7 +33,7 @@ const KPI = ({kpi}) => {
         <td>{kpi.objective}</td>
         <td>{kpi.kpi_name}</td>
         <td>{kpi.kpi_weight}</td>
-        <td>{kpi.kpi_target}</td>
+        <td>{parseInt(kpi.kpi_target)}</td>
         <td>{kpi.kpi_unit_measurement}</td>
         <td>
             <div style={{display:"flex", flexDirection:"row" }}>

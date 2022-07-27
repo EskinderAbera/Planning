@@ -1,9 +1,16 @@
 // Select The Elements
 export default function handleDarkMood() {
 
-var toggle_btn;
+  // var big_wrapper = document.querySelector(".big-wrapper");
+  // let clone = big_wrapper.cloneNode(true)
+  // clone.classList.remove("light")
+  // clone.classList.add("dark")
+  // console.log(clone)
+  // var toggle_btn = document.querySelector(".toggle-btn");
 var big_wrapper;
+var toggle_btn;
 var hamburger_menu;
+// var hamburger_menu;
 
 function declare() {
   toggle_btn = document.querySelector(".toggle-btn");
@@ -18,7 +25,7 @@ declare();
 let dark = false;
 
 function toggleAnimation() {
-  // Clone the wrapper
+
   dark = !dark;
   let clone = big_wrapper.cloneNode(true);
   if (dark) {
@@ -37,14 +44,14 @@ function toggleAnimation() {
     document.body.classList.remove("stop-scrolling");
     big_wrapper.remove();
     clone.classList.remove("copy");
-    // Reset Variables
     declare();
-    events();
+    // events();
   });
 }
 
 function events() {
-  toggle_btn.addEventListener("click", toggleAnimation);
+  toggleAnimation()
+  // toggle_btn.addEventListener("onClick", toggleAnimation);
 }
 
 events();

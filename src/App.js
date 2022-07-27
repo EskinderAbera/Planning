@@ -7,15 +7,15 @@ import { APIContextProvider } from './contexts/KPIContext';
 import { useState } from "react";
 
 function App() {
-  const [isLoggedIn, setisLoggedIn] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   return ( 
       <APIContextProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<Navigate replace to="/landing" />} />
-            {/* <Route exact path="/login" element = { <Login />}></Route> */}
-            <Route exact path="/landing" element = { <LandingPage />}></Route>
-            <Route exact path="/kpi" element = { <KPIList /> }></Route>
+            <Route path="/" element={<Navigate replace to="/login" />} />
+            <Route exact path="/login" element = {<Login setIsLoggedIn = {setIsLoggedIn} />}></Route>
+            <Route path="/landing" element = { <Protected isLoggedIn={isLoggedIn}><LandingPage /></Protected>}></Route>
+            <Route path="/kpi" element = {<Protected isLoggedIn={isLoggedIn}><KPIList /></Protected>}></Route>
           </Routes>
         </Router>
       </APIContextProvider>    

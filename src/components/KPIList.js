@@ -4,15 +4,14 @@ import AddForm from "./AddForm";
 import KPI from "./KPI"
 import Pagination from './Pagination';
 import { useAPI } from "../contexts/KPIContext";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { injectStyle } from "react-toastify/dist/inject-style";
-import { useNavigate } from "react-router-dom";
 import './KPIList.css'
 
 if (typeof window !== "undefined") {
     injectStyle();
-  }
+}
 
 const KPIList = () => {
 
@@ -23,16 +22,14 @@ const KPIList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [employeesPerPage] = useState(6)
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredKpis, setFilteredKpis] = useState(kpis);
-    let navigate = useNavigate();
 
-
-    const handleLogout = () => {
-        navigate('/login')
-    }
+    const filteringkpis = kpis.filter(kpi => 
+        kpi.kpi_weight > '0');
+    
+    const [filteredKpis, setFilteredKpis] = useState(filteringkpis);
 
     useEffect(() => {
-        const newkpis = kpis.filter(kpi =>
+        const newkpis = filteringkpis.filter(kpi =>
           kpi.kpi_name
             .toLowerCase()
             .includes(searchTerm.toLowerCase()),
@@ -61,9 +58,6 @@ const KPIList = () => {
                                     onChange={(e) => setSearchTerm(e.target.value)}
                             />
                         </div>
-                        {/* <div className="col-sm-6">
-                            <Button style = {{marginLeft: '600px'}} onClick={handleLogout} id='btn' data-toggle="modal"> <span>Logout</span></Button>					
-                        </div> */}
                     </div>
                     <div className="mb-5">
                     </div>
@@ -92,18 +86,18 @@ const KPIList = () => {
                     </thead>
                     <tbody>
                         {                
-                            filteredKpis.length === kpis.length ? currentEmployees.filter((kpi, index) => kpi.kpi_weight > '0').
-                            map((kpi, index) => (
-                                <tr key={kpi.kpi_id} >
-                                    <KPI kpi={kpi} />
-                                </tr>
-                            )) :
-                            filteredKpis.filter((kpi, index) => kpi.kpi_weight > '0').
-                            map((kpi, index) => (
-                                <tr key={kpi.kpi_id} >
-                                    <KPI kpi={kpi} />
-                                </tr>
-                            ))
+                           filteredKpis.length === kpis.length ? currentEmployees.filter((kpi, index) => kpi.kpi_weight > '0').
+                           map((kpi, index) => (
+                               <tr key={kpi.kpi_id} >
+                                   <KPI kpi={kpi} />
+                               </tr>
+                           )) :
+                           filteredKpis.filter((kpi, index) => kpi.kpi_weight > '0').
+                           map((kpi, index) => (
+                               <tr key={kpi.kpi_id} >
+                                   <KPI kpi={kpi} />
+                               </tr>
+                           ))
                         }
                     </tbody>
                     </table>
