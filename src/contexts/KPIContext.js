@@ -13,9 +13,14 @@ export function APIContextProvider({ children }) {
   const [editperspective, setEditPerspective] = useState()
   const [base, setBase] = useState("")
   const [kpiId, setKpiId] = useState('')
+  const [department, setDepartment] = useState('')
 
   const changeBase = (dept) => {
     setBase(dept)
+  }
+
+  const changeDepartment = (dept) => {
+    setDepartment(dept)
   }
 
   const changeKPIs = (KPIs) => {
@@ -89,7 +94,9 @@ export function APIContextProvider({ children }) {
         changeBase,
         base,
         kpiId,
-        changeKpiId
+        changeKpiId,
+        changeDepartment,
+        department
       }}
     >
       {children}

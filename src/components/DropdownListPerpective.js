@@ -2,7 +2,7 @@ import React from 'react'
 import { useAPI } from "../contexts/KPIContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 
- function CustomListDropDown() {
+function CustomListDropDown() {
   const {changePerpective, changeObjective, changeSelectedKpi, changeKpiName, kpis, changeUniqueKpiName} = useAPI();
   const duplicateObjective = []
 
@@ -21,16 +21,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
     changeSelectedKpi("");
     changeKpiName("")
   }
-    return (
+  return (
       
-      <div className="form-group">
-        <label>Choose Perspective</label>
+    <div className="form-group">
+      <label>Choose Perspective</label>
       <select
-      className="form-control"
-      id="perpective"
-      onChange={(e)=>{handleChange(e)}}
-    >
-      <option defaultValue>Select</option>
+        className="form-control"
+        id="perpective"
+        onChange={(e)=>{handleChange(e)}}
+      >
         <option value="Customer">
         Customer
         </option>
@@ -43,9 +42,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
         <option value="Learning and Growth">
         Learning and Growth
         </option>
-    </select>
+      </select>
     </div>
-    
-    )
-  }
+  )
+}
 export default CustomListDropDown;

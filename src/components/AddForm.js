@@ -12,7 +12,7 @@ import CustomListDropDownKPi from "./DropdownListKPIs";
 import CustomListDropDownunit from "./DropdownListUnitofMeasurement";
 
 const AddForm = () => {
-  const { selectedKpi, perspective, objective, kpiName, updateKpi, changePerpective, changeKpiName, changeObjective, changeSelectedKpi, base, kpiId} = useAPI();
+  const { selectedKpi, perspective, objective, kpiName, updateKpi, changePerpective, changeKpiName, changeObjective, changeSelectedKpi, base, kpiId, department} = useAPI();
 
   const [kpi_weight, setKPIWeight] = useState(0);
   const [kpi_target, setKPITarget] = useState(0);
@@ -40,7 +40,7 @@ const AddForm = () => {
     </div>;
   };
 
-  const updatedKpi = {kpi_id, kpi_name, perspective, objective, kpi_weight, kpi_target, kpi_unit_measurement }
+  const updatedKpi = { kpi_id, kpi_name, perspective, objective, kpi_weight, kpi_target, kpi_unit_measurement }
 
   const handleSuccess = (data) => {
     <div>
@@ -59,17 +59,32 @@ const AddForm = () => {
       "kpi_unit_measurement": selectedKpi,
     };
 
-    axios
-      .post(`${url}/${base}/add/kpi/`, datas)
-      .then((response) => {
-        if (response.status === 200) {
-          handleSuccess(response.data);
-          updateKpi(kpiId, updatedKpi)
-        }
-      })
-      .catch((error) => {
-        handleError(error);
-      });
+    if(department === 'Director'){
+      axios
+        .post(`${url}/director/${base}/add/kpi/`, datas)
+        .then((response) => {
+          if (response.status === 200) {
+            handleSuccess(response.data);
+            updateKpi(kpiId, updatedKpi)
+          }
+        })
+        .catch((error) => {
+          handleError(error);
+        });
+    } else {
+    
+        axios
+          .post(`${url}/${base}/add/kpi/`, datas)
+          .then((response) => {
+            if (response.status === 200) {
+              handleSuccess(response.data);
+              updateKpi(kpiId, updatedKpi)
+            }
+          })
+          .catch((error) => {
+            handleError(error);
+          });
+      }
   };
 
   const handleSubmit = (e) => {

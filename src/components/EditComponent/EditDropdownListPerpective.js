@@ -33,7 +33,15 @@ function CustomListDropDown() {
      
     >
       <option defaultValue>Select</option>
-        <option value="Customer">
+      <option defaultValue>Select</option>
+        {kpis.
+          map((item, index) => (
+            <option key = {item.kpi_id} value={item.perspective}>
+              {item.perspective}
+            </option>
+          ))
+        }
+        {/* <option value="Customer">
         Customer
         </option>
         <option value="Internal Business Process">
@@ -44,7 +52,7 @@ function CustomListDropDown() {
         </option>
         <option value="Learning and Growth">
         Learning and Growth
-        </option>
+        </option> */}
     </select>
     </div>
     

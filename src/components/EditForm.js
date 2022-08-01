@@ -14,7 +14,7 @@ import CustomListDropDownUnitMeasurement from '../components/EditComponent/EditD
 const EditForm = ({theEmployee}) => {
     const { selectedKpi, perspective, objective, kpiName, updateKpi, 
             changeKpiName, changeSelectedKpi, changePerpective, changeObjective, 
-            kpis, changeUniqueKpiName, base} = useAPI();
+            kpis, changeUniqueKpiName, base, department} = useAPI();
             
     const kpi_id = theEmployee.kpi_id
     const kpi_name = kpiName
@@ -69,17 +69,33 @@ const EditForm = ({theEmployee}) => {
             'kpi_target': kpi_target,
             'kpi_unit_measurement': selectedKpi
         }
-        axios
-        .post(`${url}/${base}/edit/kpi/${kpiName}/`, datas)
-        .then((response) => {
-            if (response.status == 200) {
-                handleSuccess(response.data)
-                updateKpi(kpi_id, updatedKpi)
-            }
-        })
-        .catch((error) => {
-            handleError(error.response.data['Error']);
-          });
+
+        if(department === 'Director'){
+            axios
+            .post(`${url}/director/edit/kpi/${kpiName}/`, datas)
+            .then((response) => {
+                if (response.status == 200) {
+                    handleSuccess(response.data)
+                    updateKpi(kpi_id, updatedKpi)
+                }
+            })
+            .catch((error) => {
+                handleError(error.response.data['Error']);
+              });
+              
+        } else {
+            axios
+            .post(`${url}/${base}/edit/kpi/${kpiName}/`, datas)
+            .then((response) => {
+                if (response.status == 200) {
+                    handleSuccess(response.data)
+                    updateKpi(kpi_id, updatedKpi)
+                }
+            })
+            .catch((error) => {
+                handleError(error.response.data['Error']);
+            });
+        }
     } 
 
     const handleSubmit = (e) => {
