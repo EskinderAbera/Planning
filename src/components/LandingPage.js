@@ -70,8 +70,9 @@ const LandingPage = () => {
         <div className="form-group">
           <select id='KPI' className="form-control selecting" onChange={(e)=>handleChange(e)}>
             <option>Select....</option>
+            <option value="bsc">President Level Scorecard</option>
             {/* <option value="operation">Banking Operation Process</option> */}
-            <option value="corporate">Corporate Banking Operation</option>
+            {/* <option value="corporate">Corporate Banking Operation</option> */}
             {/* <option value="cooperative">Cooperative Banking Operation</option> */}
             {/* <option value="credit">Credit Appraisal Process</option> */}
             {/* <option value="finance">Finance and Facility Process</option> */}
