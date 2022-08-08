@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { url } from "./Constants";
+import { baseUrl, url } from "./Constants";
 import { useNavigate } from "react-router-dom";
 import styles from './Login.module.css'
 import { fadeIn } from 'react-animations';
@@ -52,7 +52,7 @@ const Login = ({setIsLoggedIn}) => {
 
   const submitForm = async (e) => {  
     e.preventDefault();
-    if(datum.username.length <4 || datum.password.length < 4){
+    if(datum.username.length <3 || datum.password.length < 4){
       setData({
         ...datum,
         isShort:true
@@ -64,7 +64,7 @@ const Login = ({setIsLoggedIn}) => {
         "password" : datum.password
       }
       axios
-      .post(`${url}/core/other/login/`, datas)
+      .post(`http://pms-apis.herokuapp.com/core/auth/new/login/`, datas)
       .then((response) => {
           if (response.status == 200) {
             setLoading(false)
